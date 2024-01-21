@@ -43,6 +43,7 @@ public class SecurityConfiguration {
     public AuthenticationManager authenticationManager(UserDetailsService detailsService) {
         DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
         daoProvider.setUserDetailsService(detailsService);
+        daoProvider.setPasswordEncoder(passwordEncoder());
         return new ProviderManager(daoProvider);
     }
 
@@ -60,7 +61,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public JwtDecoder jwtDecoer() {
+    public JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(keys.getPublicKey()).build();
     }
 
